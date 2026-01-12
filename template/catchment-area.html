@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - Catchment Area</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        /* ============================================
+           TAB STYLING - Enhanced Visibility
+           ============================================ */
+        .tab-container {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 1.5rem;
+            padding: 10px 15px;
+            background: #f0f4f0;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 14px 28px;
+            background: #ffffff;
+            border: 2px solid #ccc;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #444;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn i {
+            font-size: 1.1rem;
+        }
+
+        /* Hover state for inactive tabs */
+        .tab-btn:hover:not(.active) {
+            background: #e8f5e9;
+            border-color: #81c784;
+            color: #2e7d32;
+            transform: translateY(-1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        /* ACTIVE TAB - Multiple visual indicators */
+        .tab-btn.active {
+            background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
+            color: #ffffff;
+            border: 2px solid #1b5e20;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active i {
+            color: #ffffff;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 600px) {
+            .tab-container {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .tab-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+
+        <div class="welcome-bar">
+            <h2><i class="fa-solid fa-map-location-dot"></i> Catchment Area Management</h2>
+            <p>Request new catchment areas or add farmers to your catchment.</p>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <button class="tab-btn active" data-tab="catchment-request">
+                <i class="fa-solid fa-plus-circle"></i> Request New Catchment Area
+            </button>
+            <button class="tab-btn" data-tab="farmer-request">
+                <i class="fa-solid fa-user-plus"></i> Request Farmer
+            </button>
+        </div>
+
+        <!-- Tab 1: Request New Catchment Area -->
+        <div id="catchment-request" class="tab-content active">
+            <div class="card">
+                <h3><i class="fa-solid fa-plus-circle"></i> Request New Catchment Area</h3>
+
+                <div id="requestSuccessMsg" class="alert alert-success" style="display: none;">
+                    <i class="fas fa-check-circle"></i> Your request has been submitted for approval!
+                </div>
+
+                <div id="requestErrorMsg" class="alert alert-danger"
+                    style="display: none; background: #f8d7da; color: #721c24; padding: 12px 15px; border-radius: 6px; margin-bottom: 1rem; border: 1px solid #f5c6cb;">
+                    <i class="fas fa-exclamation-circle"></i> <span id="errorText">Please fix the errors below.</span>
+                </div>
+
+                <form id="catchmentRequestForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="district">District <span class="required">*</span></label>
+                            <select id="district" class="form-control" required>
+                                <option value="">Select District...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="mandal">Mandal <span class="required">*</span></label>
+                            <select id="mandal" class="form-control" required disabled>
+                                <option value="">Select Mandal...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="panchayat">Panchayat <span class="required">*</span></label>
+                            <select id="panchayat" class="form-control" required disabled>
+                                <option value="">Select Panchayat...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="village">Village <span class="required">*</span></label>
+                            <select id="village" class="form-control" required disabled>
+                                <option value="">Select Village...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vo">VO Name <span
+                                    style="color: #999; font-weight: normal;">(Optional)</span></label>
+                            <select id="vo" class="form-control" disabled>
+                                <option value="">NA</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="shg">SHG Name <span
+                                    style="color: #999; font-weight: normal;">(Optional)</span></label>
+                            <select id="shg" class="form-control" disabled>
+                                <option value="">NA</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr style="border: none; border-top: 1px solid var(--light); margin: 1.5rem 0;">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="crop">Crop <span class="required">*</span></label>
+                            <select id="crop" class="form-control" required>
+                                <option value="">Select Crop...</option>
+                            </select>
+                            <span class="field-error" id="crop-error"
+                                style="color: #dc3545; font-size: 0.85rem; display: none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="crop_variety">Crop Variety <span
+                                    style="color: #999; font-weight: normal;">(Optional)</span></label>
+                            <select id="crop_variety" class="form-control" disabled>
+                                <option value="NA">NA - Default Variety</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="season">Season <span class="required">*</span></label>
+                            <select id="season" class="form-control" required>
+                                <option value="">Select Season...</option>
+                            </select>
+                            <span class="field-error" id="season-error"
+                                style="color: #dc3545; font-size: 0.85rem; display: none;"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="period">Period <span class="required">*</span></label>
+                            <select id="period" class="form-control" required>
+                                <option value="">Select Period...</option>
+                            </select>
+                            <span class="field-error" id="period-error"
+                                style="color: #dc3545; font-size: 0.85rem; display: none;"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-actions" style="margin-top: 1rem;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Submit for Approval
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Tab 2: Request Farmer -->
+        <div id="farmer-request" class="tab-content">
+            <div class="card">
+                <h3><i class="fa-solid fa-user-plus"></i> Request Farmer</h3>
+                <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">Enter a Farmer ID to fetch their details
+                    and submit a request.</p>
+
+                <form id="farmerCatchmentForm">
+                    <div class="form-row" style="align-items: flex-end;">
+                        <div class="form-group" style="flex: 2;">
+                            <label for="searchFarmerId">Farmer ID <span class="required">*</span></label>
+                            <input type="text" id="searchFarmerId" class="form-control"
+                                placeholder="Enter Farmer ID (e.g. FRM-555)">
+                        </div>
+                        <div class="form-group" style="flex: 1;">
+                            <button type="button" id="btnGetFarmerDetails" class="btn"
+                                style="background-color: var(--dark); color: white; width: 100%;">
+                                <i class="fas fa-search"></i> Get Details
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="farmerResults"
+                        style="display: none; margin-top: 1.5rem; border-top: 1px dashed #ccc; padding-top: 1.5rem;">
+
+                        <div class="form-row">
+                            <div class="form-group" style="flex: 1;">
+                                <label style="color: var(--primary); font-weight: bold;">Farmer Name</label>
+                                <input type="text" id="frm_name" class="form-control" readonly
+                                    style="background-color: #eef2f7; font-weight: 600;">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>District</label>
+                                <input type="text" id="frm_district" class="form-control" readonly
+                                    style="background-color: #f8f9fa;">
+                            </div>
+                            <div class="form-group">
+                                <label>Mandal</label>
+                                <input type="text" id="frm_mandal" class="form-control" readonly
+                                    style="background-color: #f8f9fa;">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Panchayat</label>
+                                <input type="text" id="frm_panchayat" class="form-control" readonly
+                                    style="background-color: #f8f9fa;">
+                            </div>
+                            <div class="form-group">
+                                <label>Village</label>
+                                <input type="text" id="frm_village" class="form-control" readonly
+                                    style="background-color: #f8f9fa;">
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top: 1rem;">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-paper-plane"></i> Submit Farmer Request
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/mock-data.js"></script>
+    <script src="../js/catchment-area.js"></script>
+    <script src="../js/app-loader.js"></script>
+
+</body>
+
+</html>

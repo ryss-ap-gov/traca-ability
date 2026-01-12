@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .profile-info h2 {
+            margin: 0;
+            color: var(--dark);
+        }
+
+        .profile-info p {
+            margin: 0.5rem 0 0;
+            color: #666;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-verified {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .document-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin-bottom: 0.75rem;
+        }
+
+        .document-card i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .document-card .doc-info {
+            flex: 1;
+        }
+
+        .document-card .doc-info strong {
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .document-card .doc-info small {
+            color: #666;
+        }
+
+        .document-card .btn-view {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+
+        <!-- Profile Card -->
+        <div class="card">
+            <div class="profile-header">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-building"></i>
+                </div>
+                <div class="profile-info">
+                    <h2 id="profileOrgName">Loading...</h2>
+                    <p id="profileAggId">Aggregator ID: ---</p>
+                    <span id="profileStatus" class="status-badge status-pending">Pending</span>
+                </div>
+            </div>
+
+            <h3><i class="fa-solid fa-id-card"></i> Profile Details</h3>
+            <div class="detail-grid" style="grid-template-columns: repeat(3, 1fr);">
+                <div class="detail-item">
+                    <strong>Organization Name</strong>
+                    <span id="detailOrgName">-</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Aggregator ID</strong>
+                    <span id="detailAggId">-</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Organization Type</strong>
+                    <span id="detailOrgType">-</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Email</strong>
+                    <span id="detailEmail">-</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Mobile</strong>
+                    <span id="detailMobile">-</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Phone</strong>
+                    <span id="detailPhone">-</span>
+                </div>
+                <div class="detail-item" style="grid-column: span 3;">
+                    <strong>Address</strong>
+                    <span id="detailAddress">-</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Documents Card -->
+        <div class="card">
+            <h3><i class="fa-solid fa-file-alt"></i> Uploaded Documents</h3>
+            <div id="documentsContainer">
+                <div class="document-card">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <div class="doc-info">
+                        <strong>PAN Card</strong>
+                        <small id="docPan">Not uploaded</small>
+                    </div>
+                    <button class="btn-view" id="btnViewPan" disabled>
+                        <i class="fa-solid fa-eye"></i> View
+                    </button>
+                </div>
+                <div class="document-card">
+                    <i class="fa-solid fa-file-invoice"></i>
+                    <div class="doc-info">
+                        <strong>GST Certificate</strong>
+                        <small id="docGst">Not uploaded</small>
+                    </div>
+                    <button class="btn-view" id="btnViewGst" disabled>
+                        <i class="fa-solid fa-eye"></i> View
+                    </button>
+                </div>
+                <div class="document-card">
+                    <i class="fa-solid fa-id-card"></i>
+                    <div class="doc-info">
+                        <strong>Aadhaar Card</strong>
+                        <small id="docAadhaar">Not uploaded</small>
+                    </div>
+                    <button class="btn-view" id="btnViewAadhaar" disabled>
+                        <i class="fa-solid fa-eye"></i> View
+                    </button>
+                </div>
+                <div class="document-card">
+                    <i class="fa-solid fa-certificate"></i>
+                    <div class="doc-info">
+                        <strong>Registration Certificate</strong>
+                        <small id="docRegCert">Not uploaded</small>
+                    </div>
+                    <button class="btn-view" id="btnViewRegCert" disabled>
+                        <i class="fa-solid fa-eye"></i> View
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Actions -->
+        <div class="card">
+            <h3><i class="fa-solid fa-cog"></i> Account Actions</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="window.location.href='catchment-area.html'">
+                    <i class="fa-solid fa-map-location-dot"></i> Manage Catchment Areas
+                </button>
+                <button class="btn btn-secondary" onclick="window.location.href='mybatch.html'">
+                    <i class="fa-solid fa-boxes-stacked"></i> View My Batches
+                </button>
+                <button class="btn btn-secondary" id="btnChangePassword">
+                    <i class="fa-solid fa-key"></i> Change Password
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/mock-data.js"></script>
+    <script src="../js/profile.js"></script>
+    <script src="../js/app-loader.js"></script>
+
+    <script>
+        // Load profile data from localStorage
+        document.addEventListener('DOMContentLoaded', function () {
+            const userStr = localStorage.getItem('user');
+            const user = userStr ? JSON.parse(userStr) : null;
+
+            if (user) {
+                // Profile header
+                document.getElementById('profileOrgName').textContent = user.org_name || user.username || 'Aggregator';
+                document.getElementById('profileAggId').textContent = 'Aggregator ID: ' + (user.user_id || '-');
+
+                // Status badge
+                const statusEl = document.getElementById('profileStatus');
+                const statusMap = {
+                    0: { text: 'Pending', class: 'status-pending' },
+                    1: { text: 'Verified', class: 'status-verified' },
+                    2: { text: 'Rejected', class: 'status-rejected' }
+                };
+                const status = statusMap[user.status] || statusMap[0];
+                statusEl.textContent = status.text;
+                statusEl.className = 'status-badge ' + status.class;
+
+                // Profile details
+                document.getElementById('detailOrgName').textContent = user.org_name || '-';
+                document.getElementById('detailAggId').textContent = user.user_id || '-';
+                document.getElementById('detailOrgType').textContent = user.org_type || '-';
+                document.getElementById('detailEmail').textContent = user.email || '-';
+                document.getElementById('detailMobile').textContent = user.mobile || '-';
+                document.getElementById('detailPhone').textContent = user.phone || '-';
+                document.getElementById('detailAddress').textContent = user.address || '-';
+            } else {
+                // Demo data
+                document.getElementById('profileOrgName').textContent = 'FPO Aggregator One';
+                document.getElementById('profileAggId').textContent = 'Aggregator ID: AGG_001';
+                document.getElementById('profileStatus').textContent = 'Verified';
+                document.getElementById('profileStatus').className = 'status-badge status-verified';
+
+                document.getElementById('detailOrgName').textContent = 'FPO Aggregator One';
+                document.getElementById('detailAggId').textContent = 'AGG_001';
+                document.getElementById('detailOrgType').textContent = 'FPO';
+                document.getElementById('detailEmail').textContent = 'fpo@example.com';
+                document.getElementById('detailMobile').textContent = '9876543210';
+                document.getElementById('detailPhone').textContent = '040-12345678';
+                document.getElementById('detailAddress').textContent = 'Kuppam, Chittoor District, Andhra Pradesh';
+            }
+        });
+
+        // Change password handler
+        document.getElementById('btnChangePassword').addEventListener('click', function () {
+            alert('Password change feature coming soon!');
+        });
+    </script>
+
+</body>
+
+</html>

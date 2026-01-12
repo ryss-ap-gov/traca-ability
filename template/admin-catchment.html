@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - Catchment Requests</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+
+    <div class="admin-wrapper">
+        <div id="admin-header-placeholder"></div>
+
+        <main class="admin-content">
+
+
+            <div class="card">
+                <h3><i class="fa-solid fa-map-location-dot"></i> Requested Areas (2)</h3>
+                <div class="table-container">
+                    <table class="approval-table" id="catchment-approval-table">
+                        <thead>
+                            <tr>
+                                <th>Aggregator</th>
+                                <th>District</th>
+                                <th>Mandal</th>
+                                <th>Village</th>
+                                <th>Crop</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-id="catch-301">
+                                <td>Kuppam FPO</td>
+                                <td>Chittoor</td>
+                                <td>Palamaner</td>
+                                <td>Gollapalli</td>
+                                <td>TOMATO</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-small btn-success approve-btn"><i
+                                            class="fa-solid fa-check"></i> Approve</button>
+                                    <button class="btn btn-small btn-danger reject-btn"><i
+                                            class="fa-solid fa-times"></i> Reject</button>
+                                </td>
+                            </tr>
+                            <tr data-id="catch-302">
+                                <td>Anantapur Farms</td>
+                                <td>Anantapur</td>
+                                <td>Kalyandurg</td>
+                                <td>Mylapuram</td>
+                                <td>GROUNDNUT</td>
+                                <td class="action-buttons">
+                                    <button class="btn btn-small btn-success approve-btn"><i
+                                            class="fa-solid fa-check"></i> Approve</button>
+                                    <button class="btn btn-small btn-danger reject-btn"><i
+                                            class="fa-solid fa-times"></i> Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <div id="admin-footer-placeholder"></div>
+    </div>
+
+    <script src="../js/mock-data.js"></script>
+    <script src="../js/admin-approvals.js"></script>
+    <script src="../js/admin-loader.js"></script>
+
+</body>
+
+</html>

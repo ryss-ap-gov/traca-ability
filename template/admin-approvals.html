@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Approvals - APCNF Portal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+
+    <div class="admin-wrapper">
+        <div id="admin-header-placeholder"></div>
+
+        <main class="admin-content">
+
+            <!-- PENDING AGGREGATORS TABLE -->
+            <div class="card">
+                <h3>
+                    <i class="fa-solid fa-warehouse"></i>
+                    Pending Aggregators (<span id="pendingAggCount">0</span>)
+                </h3>
+                <div class="table-container">
+                    <table class="approval-table" id="aggregator-approval-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Organisation Name</th>
+                                <th>Organisation Type</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Documents</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="aggregatorTableBody">
+                            <tr>
+                                <td colspan="7" class="placeholder">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="aggregatorPagination"></div>
+                </div>
+            </div>
+
+            <!-- PENDING BUYERS TABLE -->
+            <div class="card">
+                <h3>
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    Pending Buyers (<span id="pendingBuyerCount">0</span>)
+                </h3>
+                <div class="table-container">
+                    <table class="approval-table" id="buyer-approval-table">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Organisation Name</th>
+                                <th>Organisation Type</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Documents</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="buyerTableBody">
+                            <tr>
+                                <td colspan="7" class="placeholder">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="buyerPagination"></div>
+                </div>
+            </div>
+
+            <!-- APPLICATION HISTORY TABLE -->
+            <div class="card">
+                <h3>
+                    <i class="fa-solid fa-history"></i>
+                    Application History (<span id="historyCount">0</span>)
+                </h3>
+                <div class="table-container">
+                    <table class="approval-table" id="history-table">
+                        <thead>
+                            <tr>
+                                <th>User Role </th>
+                                <th>User ID</th>
+                                <th>Organisation Name</th>
+                                <th>Organisation Type</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Documents</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr>
+                                <td colspan="8" class="placeholder">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div id="historyPagination"></div>
+                </div>
+            </div>
+
+        </main>
+
+        <div id="admin-footer-placeholder"></div>
+    </div>
+
+    <!-- DOCUMENT VIEWER MODAL -->
+    <div id="docModal" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-file"></i> Documents</h3>
+                <span class="close-btn" onclick="closeDocModal()">&times;</span>
+            </div>
+            <div class="modal-body" id="docModalBody">
+                <!-- Documents will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Load mock-data.js first for demo mode -->
+    <script src="../js/mock-data.js"></script>
+    <!-- Load apcnf.js first (defines API_BASE_URL) -->
+    <script src="../js/apcnf.js"></script>
+    <!-- Then load admin scripts -->
+    <script src="../js/admin-approvals.js"></script>
+    <script src="../js/admin-loader.js"></script>
+
+</body>
+
+</html>

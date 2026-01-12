@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - Login Page </title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css"> 
+    <link rel="stylesheet" href="../css/style.css"> <style>
+        body {
+
+            background: #f5f7fa; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+        }
+
+        #mainHeader {
+            width: 100%;
+            position: relative; 
+        }
+
+        .login-card {
+            margin-top: 4rem; 
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="mainHeader">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="../img/RYSS_Logo.png" alt="RYSS APCNF Logo" class="logo-img">
+                <div class="brand-text">
+                    <h1>APCNF-RySS Traceability Portal</h1>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="apcnf.html" class="btn-login" style="background: var(--accent-orange);">
+                            <i class="fas fa-arrow-left"></i> Back to Home
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <div class="login-card">
+        <div class="login-header">
+            <h2>Portal Login</h2>
+        </div>
+
+        <form class="login-form" id="loginForm">
+            <div id="errorMessage" class="error-message" style="display: none;">
+                Invalid credentials. Please try again.
+            </div>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn">
+                <i class="fa-solid fa-right-to-bracket"></i> Login
+            </button>
+        </form>
+    </div>
+
+<script src="../js/mock-data.js"></script>
+<script src="../js/apcnf.js"></script>
+<script src="../js/login.js"></script>
+</body>
+</html>

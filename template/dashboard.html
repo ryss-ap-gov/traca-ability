@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - Aggregator Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .status-pending {
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-approved {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .status-rejected {
+            background-color: #f8d7da;
+            color: #721c24;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .no-data-message {
+            text-align: center;
+            color: #666;
+            padding: 2rem;
+            font-style: italic;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .stat-card .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-card .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main id="dashboard" class="container">
+
+        <div class="welcome-bar">
+            <h2>Welcome, <span id="aggregatorNameDisplay">Aggregator</span>!</h2>
+            <p>View your catchment areas and farmer list below.</p>
+        </div>
+
+        <!-- Dashboard Stats -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-value" id="statCatchments">0</div>
+                <div class="stat-label">Total Approved Catchment Areas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statFarmers">0</div>
+                <div class="stat-label">Total Approved Farmers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statBatches">0</div>
+                <div class="stat-label">Total Batches</div>
+            </div>
+        </div>
+
+        <!-- Table 1: My Catchment Areas -->
+        <div class="card">
+            <h3><i class="fa-solid fa-map-location-dot"></i> My Catchment Areas</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aggregator ID</th>
+                            <th>District</th>
+                            <th>Mandal</th>
+                            <th>Panchayat</th>
+                            <th>Village</th>
+                            <th>Crop</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="catchmentTableBody">
+                        <tr>
+                            <td colspan="7" class="no-data-message">Loading catchment areas...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Table 2: My Farmer List -->
+        <div class="card">
+            <h3><i class="fa-solid fa-users"></i> My Farmer List</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Farmer ID</th>
+                            <th>Farmer Name</th>
+                            <th>Farmer Category</th>
+                            <th>District</th>
+                            <th>Mandal</th>
+                            <th>Panchayat</th>
+                            <th>Village</th>
+                            <th>Crop</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="farmerTableBody">
+                        <tr>
+                            <td colspan="9" class="no-data-message">Loading farmer list...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/mock-data.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/app-loader.js"></script>
+
+</body>
+
+</html>

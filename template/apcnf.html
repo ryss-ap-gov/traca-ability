@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en"> <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle" data-i18n="public_home_title">APCNF-RySS Traceability Portal - Farm to Market</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+    <!-- Telugu Font Support -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Telugu:wght@400;500;700&display=swap" rel="stylesheet">
+ 
+</head>
+<body>
+    <header id="mainHeader">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="../img/RYSS_Logo.png" alt="RYSS APCNF Logo" class="logo-img">
+                <div class="brand-text">
+                    <h1 data-i18n="h1_apcnf_portal">APCNF-RySS Traceability Portal</h1>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li class="dropdown">
+                        <span class="dropdown-toggle"><i class="fas fa-user-plus"></i> <span data-i18n="nav_register">Register</span> <i class="fas fa-chevron-down"></i></span>
+                        <div class="dropdown-menu">
+                            <a href="#" onclick="openModal('aggregatorModal')"><i class="fas fa-warehouse"></i> <span data-i18n="nav_as_aggregator">As Aggregator</span></a>
+                            <a href="#" onclick="openModal('buyerModal')"><i class="fas fa-shopping-cart"></i> <span data-i18n="nav_as_buyer">As Buyer</span></a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="login.html" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i> <span data-i18n="nav_login">Login</span>
+                        </a>
+                    </li>
+                    
+                    <li class="language-selector" style="margin-left: 1rem;">
+                        <i class="fa-solid fa-language" style="color: white;"></i>
+                        <select id="language-switcher" class="form-control" style="width: auto; background: #333; color: white; border-color: #555;">
+                            <option value="en">English</option>
+                            <option value="hi">हिन्दी (Hindi)</option>
+                            <option value="te">తెలుగు (Telugu)</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="home" style="background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/farmer.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+        <div class="hero-content">
+            <h1 class="hero-title" data-i18n="hero_title">From Soil to Supply - Natural, Traceable, Trustworthy</h1>
+            <p class="hero-subtitle-primary" data-i18n="hero_subtitle_1">Naturally Grown - Digitally Shown</p>
+            <p class="hero-subtitle-telugu" data-i18n="hero_subtitle_2">మట్టినుంచి మార్కెట్‌ వరకు - ప్రకృతి వ్యవసాయం, రైతుల సాధికారత, పర్యావరణ రక్షణ</p>        
+            <div class="hero-buttons">
+                <button class="btn btn-orange" onclick="openModal('aggregatorModal')">
+                    <i class="fas fa-warehouse"></i> <span data-i18n="hero_btn_agg">Register as Aggregator</span>
+                </button>
+                <button class="btn btn-primary" onclick="openModal('buyerModal')">
+                    <i class="fas fa-shopping-cart"></i> <span data-i18n="hero_btn_buy">Register as Buyer</span>
+                </button>
+            </div>
+        </div>
+    </section>
+<section class="features" id="crops-section">
+        <div class="container">
+            <h2 data-i18n="features_title">Variety of Crops</h2>
+            
+            <div class="crops-grid">
+                
+                <!-- Crop 1: Paddy -->
+                <div class="crop-card" data-crop="paddy">
+                    <div class="crop-icon">🌾</div>
+                    <h3>Paddy</h3>
+                    <p class="crop-desc-short">Naturally Gluten-free and high in dietary fibre, zero-chemical paddy is rich in Vitamins, essential minerals, complex carbohydrates, and natural antioxidants.</p>
+                    
+                    <!-- Hover Tooltip -->
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Paddy</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Naturally Gluten-free and high in dietary fibre, zero-chemical paddy is rich in Vitamins, essential minerals, complex carbohydrates, and natural antioxidants.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>సహజంగా గ్లూటెన్ లేకుండా, ఆహార ఫైబర్ ఎక్కువగా ఉండే ఈ వరి, రసాయనాలు లేకుండా పండించబడుతుంది. ఇందులో విటమిన్లు, అవసరమైన ఖనిజాలు, సంక్లిష్ట కార్బోహైడ్రేట్లు మరియు సహజ యాంటీఆక్సిడెంట్లు పుష్కలంగా ఉంటాయి, ఇవి ఆరోగ్యాన్ని మెరుగుపరుస్తాయి.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 2: Maize -->
+                <div class="crop-card" data-crop="maize">
+                    <div class="crop-icon">🌽</div>
+                    <h3>Maize</h3>
+                    <p class="crop-desc-short">Nutrient-dense maize packed with fibre for better digestion, carotenoids, antioxidants, vitamins and essential minerals</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Maize</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Nutrient-dense maize packed with fibre for better digestion, carotenoids, antioxidants , vitamins and essential minerals</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>ఫైబర్‌తో సమృద్ధిగా ఉండే మొక్కజొన్న, శరీరానికి శక్తిని అందించే పోషకాలు కలిగి ఉంటుంది. ప్రకృతి వ్యవసాయ విధానంలో పండిన మొక్కజొన్న, జీర్ణక్రియను మెరుగుపరచి ఆరోగ్యకరమైన ఆహారానికి తోడ్పడుతుంది.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 3: Ground nut -->
+                <div class="crop-card" data-crop="groundnut">
+                    <div class="crop-icon">🥜</div>
+                    <h3>Ground nut</h3>
+                    <p class="crop-desc-short">Rich in clean plant protein, wholesome natural oils, fibre, and antioxidant nutrients, remains free of aflatoxins.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Ground nut</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Rich in clean plant protein, wholesome natural oils, fibre, and antioxidant nutrients, remains free of aflatoxins.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>స్వచ్ఛమైన మొక్కల ప్రోటీన్, సహజ నూనెలు, ఫైబర్ మరియు యాంటీఆక్సిడెంట్ పోషకాలతో సమృద్ధిగా ఉండే ఈ వేరుశనగ, అఫ్లాటాక్సిన్లు లేకుండా ఉంటుంది మరియు ఆరోగ్యానికి మంచిది.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 4: Bengal gram -->
+                <div class="crop-card" data-crop="bengalgram">
+                    <div class="crop-icon">🫘</div>
+                    <h3>Bengal gram</h3>
+                    <p class="crop-desc-short">Bengal gram grown in living soil with zero-chemicals, protein- and fiber-rich loaded with wholesome nutrition.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Bengal gram</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Bengal gram grown in living soil with zero-chemicals, protein- and fiber-rich loaded with wholesome nutrition.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>జీవంతో నిండి ఉన్న నేలల్లో, ఎలాంటి రసాయనాలు లేకుండా పండించిన సెనగలు ప్రోటీన్, పీచు అధికంగా ఉండి పూర్తి పోషకాన్ని అందిస్తాయి</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 5: Green gram -->
+                <div class="crop-card" data-crop="greengram">
+                    <div class="crop-icon">🫘</div>
+                    <h3>Green gram</h3>
+                    <p class="crop-desc-short">Green gram – protein-packed, antioxidant-rich, gut-healthy, that fuels immunity, strengthens bones.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Green gram</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Green gram – protein-packed, antioxidant-rich, gut-healthy , that fuels immunity, strengthens bones.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>ప్రోటీన్‌తో పాటు యాంటీఆక్సిడెంట్లు సమృద్ధిగా ఉన్న పెసలు, శరీరానికి తేలికగా జీర్ణమవుతాయి. సహజంగా సాగు చేసిన ఈ పంట, రోగనిరోధక శక్తిని పెంచే గుణం కలిగి ఉంటుంది.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 6: Red gram -->
+                <div class="crop-card" data-crop="redgram">
+                    <div class="crop-icon">🫘</div>
+                    <h3>Red gram</h3>
+                    <p class="crop-desc-short">Red gram from naturally enriched soils -power up with zero-chemical, a plant protein-rich, fiber-packed super pulse.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Red gram</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Red gram from naturally enriched soils -power up with zero-chemical , a plant protein-rich, fiber-packed super pulse.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>సహజంగా పోషకాలు కలిగిన నేలల్లో, రసాయన రహితంగా పండించిన కందులు సస్య ప్రోటీన్ ఎక్కువగా, పీచు సమృద్ధిగా ఉండే శక్తివంతమైన పప్పుగా ఉపయోగపడతాయి.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 7: Finger Millet -->
+                <div class="crop-card" data-crop="fingermillet">
+                    <div class="crop-icon">🌾</div>
+                    <h3>Finger Millet</h3>
+                    <p class="crop-desc-short">Naturally grown - zero-chemical finger millet – diabetic friendly, gluten free, fiber-packed, iron-loaded super grain.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Finger Millet</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Naturally grown - zero-chemical finger millet – diabetic friendly, gluten free , fiber-packed, iron-loaded super grain.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>సహజ పద్ధతుల్లో, రసాయనాలు లేకుండా పండించిన రాగులు మధుమేహ రోగులకు అనుకూలంగా, గ్లూటెన్ రహితంగా ఉండి, పీచు, ఇనుముతో నిండిన ఆరోగ్యకరమైన ధాన్యంగా ఉంటాయి.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 8: Pearl Millet -->
+                <div class="crop-card" data-crop="pearlmillet">
+                    <div class="crop-icon">🌾</div>
+                    <h3>Pearl Millet</h3>
+                    <p class="crop-desc-short">Naturally grown Pearl Millet - fiber-brimming, low glycemic index, iron-loaded, calcium powerhouse.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Pearl Millet</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Naturally grown Pearl Millet - fiber-brimming, low glycemic index, iron-loaded, calcium powerhouse.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>సహజ పద్ధతుల్లో పండించిన సజ్జలు పీచు అధికంగా ఉండి, తక్కువ గ్లైసెమిక్ సూచిక కలిగి, ఇనుము మరియు కాల్షియం సమృద్ధిగా ఉన్న శక్తివంతమైన ఆహారంగా ఉంటాయి.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 9: Sorghum -->
+                <div class="crop-card" data-crop="sorghum">
+                    <div class="crop-icon">🌾</div>
+                    <h3>Sorghum</h3>
+                    <p class="crop-desc-short">Versatile, drought-tolerant, grown with minimal water footprint, gluten-free ancient grain, boasts high fiber for digestion.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Sorghum</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Versatile, drought-tolerant, grown with minimal water footprint, gluten-free ancient grain, boasts high fiber for digestion.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>బహుముఖంగా ఉపయోగపడే, కరువు-తట్టుకునే ఈ జొన్న, తక్కువ నీటి వినియోగంతో పండించబడుతుంది. గ్లూటెన్ లేకుండా, పురాతన ధాన్యంగా జీర్ణక్రియకు సహాయపడే అధిక ఫైబర్‌ను కలిగి ఉంటుంది.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Crop 10: Red Chilli -->
+                <div class="crop-card" data-crop="redchilli">
+                    <div class="crop-icon">🌶️</div>
+                    <h3>Red Chilli</h3>
+                    <p class="crop-desc-short">Red chilli from Andhra Pradesh stands out for its bold heat, vibrant natural colour, and rich flavour with higher aroma, antioxidant richness.</p>
+                    
+                    <div class="crop-tooltip">
+                        <div class="tooltip-header">Red Chilli</div>
+                        <div class="tooltip-section">
+                            <strong>English:</strong>
+                            <p>Red chilli from Andhra Pradesh stands out for its bold heat, vibrant natural colour, and rich flavour with higher aroma, antioxidant richness.</p>
+                        </div>
+                        <div class="tooltip-section">
+                            <strong>తెలుగు:</strong>
+                            <p>ఆంధ్రప్రదేశ్‌లో పండించే ఎర్ర మిరపకాయలు ఎక్కువ కారంతో, ప్రకాశవంతమైన సహజ రంగుతో, గాఢమైన రుచితో పాటు మంచి సువాసన, యాంటీఆక్సిడెంట్ గుణాలతో ప్రత్యేకంగా నిలుస్తాయి.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-item">
+                <h3>247</h3>
+                <p data-i18n="stats_aggregators">Registered Aggregators</p>
+            </div>
+            <div class="stat-item">
+                <h3>182</h3>
+                <p data-i18n="stats_buyers">Active Buyers</p>
+            </div>
+            <div class="stat-item">
+                <h3>5,432</h3>
+                <p data-i18n="stats_farmers">Enrolled Farmers</p>
+            </div>
+            <div class="stat-item">
+                <h3>12,890</h3>
+                <p data-i18n="stats_batches">Batches Traced</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="filter-section">
+            <h3 style="color: var(--dark); margin-bottom: 1rem;">
+                <i class="fas fa-map-marked-alt"></i> <span data-i18n="map_filter_title">View Farm Locations in Andhra Pradesh</span>
+            </h3>
+            <div class="filter-row">
+                <div class="form-group">
+                    <label><i class="fas fa-map-marker-alt"></i> <span data-i18n="map_filter_label_district">Select District</span></label>
+                    <select id="homeDistrict">
+                        <option value="" data-i18n="map_filter_option_all_districts">All Districts</option>
+                        <option>Anantapur</option>
+                        <option>Chittoor</option>
+                        <option>East Godavari</option>
+                        <option>Guntur</option>
+                        <option>Krishna</option>
+                        <option>Kurnool</option>
+                        <option>Prakasam</option>
+                        <option>Srikakulam</option>
+                        <option>Visakhapatnam</option>
+                        <option>Vizianagaram</option>
+                        <option>West Godavari</option>
+                        <option>YSR Kadapa</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-location-arrow"></i> <span data-i18n="map_filter_label_mandal">Select Mandal</span></label>
+                    <select id="homeMandal">
+                        <option value="" data-i18n="map_filter_option_all_mandals">All Mandals</option>
+                        <option>Adoni</option>
+                        <option>Amaravati</option>
+                        <option>Vijayawada</option>
+                        <option>Tirupati</option>
+                        <option>Visakhapatnam</option>
+                        <option>Kakinada</option>
+                        <option>Rajahmundry</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+
+
+    <!-- AGGREGATOR REGISTRATION MODAL -->
+    <div id="aggregatorModal" class="modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button class="modal-close" onclick="if(document.getElementById('aggSuccessMsg').style.display==='block'){closeAggregatorModal();}else{closeModal('aggregatorModal');}">&times;</button>
+                <h2><i class="fas fa-warehouse"></i> <span data-i18n="modal_agg_title">Aggregator Registration</span></h2>
+                <p data-i18n="modal_agg_subtitle">Join our platform to connect farmers with markets</p>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+                <!-- ERROR MESSAGE (shows when validation fails) -->
+                <div class="alert alert-danger" id="aggErrorMsg" style="display: none;"></div>
+                
+                <!-- SUCCESS MESSAGE (shows when registration succeeds) -->
+                <div class="alert alert-success" id="aggSuccessMsg" style="display: none;"></div>
+                
+                <!-- REGISTRATION FORM - Form ID is "aggForm" -->
+                <form id="aggForm">
+                    
+                    <!-- ============================================================
+                         SECTION 1: ORGANIZATION DETAILS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_org"><i class="fas fa-building"></i> Organisation Details</h3>
+                    </div>
+                    
+                    <!-- Organization Type -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_org_type">Organisation/Entity Type <span class="required">*</span></label>
+                        <select id="aggOrgType" name="org_type" required onchange="toggleDocumentFields('agg')">
+                            <option value="" data-i18n="modal_option_select_type">Select type</option>
+                            <option value="Individual" data-i18n="modal_option_individual">Individual</option>
+                            <option value="FPO" data-i18n="modal_option_fpo">FPO</option>
+                            <option value="MS" data-i18n="modal_option_ms">MS</option>
+                            <option value="VO" data-i18n="modal_option_vo">VO</option>
+                            <option value="BRC" data-i18n="modal_option_BRC">BRC</option>
+                            <option value="Entrepreneur" data-i18n="modal_option_Entrepreneur">Entrepreneur</option>
+                        </select>
+                    </div>
+
+                    <!-- Organization Name -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_name">Name <span class="required">*</span></label>
+                        <input type="text" 
+                               id="aggOrgName" 
+                               name="org_name" 
+                               maxlength="500" 
+                               placeholder="Full legal name of entity or individual" 
+                               required 
+                               data-i18n="[placeholder]modal_placeholder_legal_name">
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_address">Address <span class="required">*</span></label>
+                        <textarea id="aggAddress" 
+                                  name="address" 
+                                  rows="3" 
+                                  maxlength="500" 
+                                  placeholder="Complete address" 
+                                  required 
+                                  data-i18n="[placeholder]modal_placeholder_addr1"></textarea>
+                    </div>
+
+                    <!-- Mobile & Phone Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="modal_label_mobile">Mobile <span class="required">*</span></label>
+                            <input type="tel" 
+                                   id="aggMobile" 
+                                   name="mobile" 
+                                   maxlength="13" 
+                                   pattern="[0-9]{10,13}" 
+                                   placeholder="Primary mobile number" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_mobile">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="modal_label_phone">Phone <span class="required">*</span></label>
+                            <input type="tel" 
+                                   id="aggPhone" 
+                                   name="phone" 
+                                   maxlength="13" 
+                                   pattern="[0-9]{10,13}" 
+                                   placeholder="Landline number" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_phone">
+                        </div>
+                    </div>
+
+                    <!-- Email with Real-time Validation -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_email">Email <span class="required">*</span></label>
+                        <input type="email" 
+                               id="aggEmail" 
+                               name="email" 
+                               maxlength="100" 
+                               placeholder="Official email address" 
+                               required 
+                               data-i18n="[placeholder]modal_placeholder_email">
+                        <!-- Real-time feedback (✓ available or ✗ taken) -->
+                        <div id="aggEmailFeedback" class="field-feedback"></div>
+                    </div>
+
+                    <!-- ============================================================
+                         SECTION 2: SPOC DETAILS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_spoc"><i class="fas fa-user-tie"></i> Head of Entity / SPOC</h3>
+                    </div>
+                    
+                    <!-- SPOC Name -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_spoc_name">Name (SPOC) <span class="required">*</span></label>
+                        <input type="text" 
+                               id="aggSpocName" 
+                               name="spoc_name" 
+                               maxlength="500" 
+                               placeholder="Full name of contact person" 
+                               required 
+                               data-i18n="[placeholder]modal_placeholder_spoc_name">
+                    </div>
+                    
+                    <!-- SPOC Mobile & Email Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="modal_label_spoc_mobile">Mobile Number (SPOC) <span class="required">*</span></label>
+                            <input type="tel" 
+                                   id="aggSpocMobile" 
+                                   name="spoc_mobile" 
+                                   maxlength="13" 
+                                   pattern="[0-9]{10,13}" 
+                                   placeholder="Contact person's mobile" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_spoc_mobile">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="modal_label_spoc_email">Email ID (SPOC) <span class="required">*</span></label>
+                            <input type="email" 
+                                   id="aggSpocEmail" 
+                                   name="spoc_email" 
+                                   maxlength="100" 
+                                   placeholder="Contact person's email" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_spoc_email">
+                        </div>
+                    </div>
+
+                    <!-- ============================================================
+                         SECTION 3: DOCUMENT UPLOADS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_docs"><i class="fas fa-file-upload"></i> Document Uploads</h3>
+                    </div>
+                    
+                    <div class="doc-upload-info" data-i18n="modal_doc_info">
+                        <i class="fas fa-info-circle"></i> Documents are mandatory for Institutions (FPO, MS, VO, BRC). Aadhar is mandatory for Individuals and Entrepreneurs.
+                    </div>
+                    
+                    <!-- Document Row 1: Registration & PAN -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label id="aggRegLabel" data-i18n="modal_label_reg_no">Registration Certificate</label>
+                            <input type="file" 
+                                   id="aggRegUpload" 
+                                   name="reg_certificate" 
+                                   accept=".pdf,.jpg,.jpeg,.png">
+                            <small data-i18n="modal_doc_note_institution">Mandatory for Institutions</small>
+                        </div>
+                        <div class="form-group">
+                            <label id="aggPanLabel" data-i18n="modal_label_pan">PAN Card</label>
+                            <input type="file" 
+                                   id="aggPanUpload" 
+                                   name="pan_card" 
+                                   accept=".pdf,.jpg,.jpeg,.png">
+                            <small data-i18n="modal_doc_note_institution">Mandatory for Institutions</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Document Row 2: Aadhar -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label id="aggAadharLabel" data-i18n="modal_label_aadhar">Aadhar Card</label>
+                            <input type="file" 
+                                   id="aggAadharUpload" 
+                                   name="aadhar_card" 
+                                   accept=".pdf,.jpg,.jpeg,.png">
+                            <small data-i18n="modal_doc_note_individual">Mandatory for Individuals & Entrepreneurs</small>
+                        </div>
+                    </div>
+
+                    <!-- ============================================================
+                         SECTION 4: ACCOUNT CREDENTIALS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_creds"><i class="fas fa-key"></i> Account Credentials</h3>
+                    </div>
+                    
+                    <!-- Username & Password Row -->
+                    <div class="form-row">
+                        <!-- Username with Real-time Validation -->
+                        <div class="form-group">
+                            <label data-i18n="modal_label_userid">User ID <span class="required">*</span></label>
+                            <input type="text" 
+                                   id="aggUserId" 
+                                   name="user_id" 
+                                   maxlength="30" 
+                                   placeholder="Create a User ID" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_userid">
+                            <!-- Real-time feedback (✓ available or ✗ taken) -->
+                            <div id="aggUsernameFeedback" class="field-feedback"></div>
+                        </div>
+                        
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label data-i18n="modal_label_password">Password <span class="required">*</span></label>
+                            <div class="password-wrapper">
+                                <input type="password" 
+                                       id="aggPassword" 
+                                       name="password" 
+                                       maxlength="72" 
+                                       placeholder="Create password (8-72 characters)" 
+                                       required 
+                                       data-i18n="[placeholder]modal_placeholder_password">
+                                <i class="fas fa-eye password-toggle" onclick="togglePassword('aggPassword')"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Action Buttons -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i> <span data-i18n="modal_btn_submit">Submit for Approval</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeModal('aggregatorModal')">
+                            <i class="fas fa-times"></i> <span data-i18n="modal_btn_cancel">Cancel</span>
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+<!-- ============================================================================
+     BUYER REGISTRATION MODAL - UPDATED TO MATCH AGGREGATOR FORM
+     ============================================================================ 
+     
+     CHANGES FROM OLD VERSION:
+     ✅ Added Organization/Entity Type dropdown
+     ✅ Restructured to match aggregator form exactly
+     ✅ Added proper form sections
+     ✅ Added SPOC details section
+     ✅ Added real-time validation placeholders
+     ✅ Updated document upload structure
+     ✅ Better organization and consistency
+     
+     ============================================================================ -->
+
+<!-- BUYER REGISTRATION MODAL -->
+    <div id="buyerModal" class="modal">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeBuyerModalAndReset()">&times;</button>
+                <h2><i class="fas fa-shopping-cart"></i> <span data-i18n="modal_buy_title">Buyer Registration</span></h2>
+                <p data-i18n="modal_buy_subtitle">Join our platform to connect farmers with markets</p>
+            </div>
+            
+            <!-- Modal Body -->
+            <div class="modal-body">
+                
+                <!-- ERROR MESSAGE (shows when validation fails) -->
+                <div class="alert alert-danger" id="buyerErrorMsg" style="display: none;"></div>
+                
+                <!-- SUCCESS MESSAGE (shows when registration succeeds) -->
+                <div class="alert alert-success" id="buyerSuccessMsg" style="display: none;"></div>
+                
+                <!-- REGISTRATION FORM - Form ID is "buyerForm" -->
+                <form id="buyerForm" onsubmit="event.preventDefault();">
+
+                    
+                    <!-- ============================================================
+                         SECTION 1: ORGANIZATION DETAILS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_org"><i class="fas fa-building"></i> Organisation Details</h3>
+                    </div>
+                    
+                    <!-- Organization Type -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_org_type">Organisation/Entity Type <span class="required">*</span></label>
+                        <select id="buyerOrgType" name="buyer_org_type" required onchange="toggleDocumentFields('buyer')">
+                            <option value="" data-i18n="modal_option_select_type">Select type</option>
+                            <option value="Individual" data-i18n="modal_option_individual">Individual</option>
+                            <option value="FPO" data-i18n="modal_option_fpo">FPO</option>
+                            <option value="MS" data-i18n="modal_option_ms">MS</option>
+                            <option value="VO" data-i18n="modal_option_vo">VO</option>
+                            <option value="BRC" data-i18n="modal_option_BRC">BRC</option>
+                            <option value="Entrepreneur" data-i18n="modal_option_Entrepreneur">Entrepreneur</option>
+                        </select>
+                    </div>
+
+                    <!-- Organization Name -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_name">Name <span class="required">*</span></label>
+                        <input type="text" 
+                               id="buyerOrgName" 
+                               name="buyer_org_name" 
+                               maxlength="500" 
+                               placeholder="Full legal name of entity or individual" 
+                               required 
+                               data-i18n="[placeholder]modal_placeholder_legal_name">
+                    </div>
+
+                    <!-- Address -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_address">Address <span class="required">*</span></label>
+                        <textarea id="buyerAddress" 
+                                  name="buyer_org_address" 
+                                  rows="3" 
+                                  maxlength="500" 
+                                  placeholder="Complete address" 
+                                  required 
+                                  data-i18n="[placeholder]modal_placeholder_addr1"></textarea>
+                    </div>
+
+                    <!-- Mobile & Phone Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="modal_label_mobile">Mobile <span class="required">*</span></label>
+                            <input type="tel" 
+                                   id="buyerMobile" 
+                                   name="buyer_org_mobile" 
+                                   maxlength="13" 
+                                   pattern="[0-9]{10,13}" 
+                                   placeholder="Primary mobile number" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_mobile">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="modal_label_phone">Phone <span class="required">*</span></label>
+                            <input type="tel" 
+                                   id="buyerPhone" 
+                                   name="buyer_org_phone" 
+                                   maxlength="13" 
+                                   pattern="[0-9]{10,13}" 
+                                   placeholder="Landline number" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_phone">
+                        </div>
+                    </div>
+
+                    <!-- Email with Real-time Validation -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_email">Email <span class="required">*</span></label>
+                        <input type="email" 
+                               id="buyerEmail" 
+                               name="buyer_org_email" 
+                               maxlength="100" 
+                               placeholder="Official email address" 
+                               required 
+                               data-i18n="[placeholder]modal_placeholder_email">
+                        <!-- Real-time feedback (✓ available or ✗ taken) -->
+                        <div id="buyerEmailFeedback" class="field-feedback"></div>
+                    </div>
+
+                    <!-- ============================================================
+                         SECTION 2: SPOC DETAILS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_spoc"><i class="fas fa-user-tie"></i> Head of Entity / SPOC</h3>
+                    </div>
+                    
+                    <!-- SPOC Name -->
+                    <div class="form-group">
+                        <label data-i18n="modal_label_spoc_name">Name (SPOC) <span class="required">*</span></label>
+                        <input type="text" 
+                               id="buyerSpocName" 
+                               name="buyer_org_spoc_name" 
+                               maxlength="500" 
+                               placeholder="Full name of contact person" 
+                               required 
+                               data-i18n="[placeholder]modal_placeholder_spoc_name">
+                    </div>
+                    
+                    <!-- SPOC Mobile & Email Row -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label data-i18n="modal_label_spoc_mobile">Mobile Number (SPOC) <span class="required">*</span></label>
+                            <input type="tel" 
+                                   id="buyerSpocMobile" 
+                                   name="buyer_org_spoc_mobile" 
+                                   maxlength="13" 
+                                   pattern="[0-9]{10,13}" 
+                                   placeholder="Contact person's mobile" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_spoc_mobile">
+                        </div>
+                        <div class="form-group">
+                            <label data-i18n="modal_label_spoc_email">Email ID (SPOC) <span class="required">*</span></label>
+                            <input type="email" 
+                                   id="buyerSpocEmail" 
+                                   name="buyer_org_spoc_email" 
+                                   maxlength="100" 
+                                   placeholder="Contact person's email" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_spoc_email">
+                        </div>
+                    </div>
+
+                    <!-- ============================================================
+                         SECTION 3: DOCUMENT UPLOADS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_docs"><i class="fas fa-file-upload"></i> Document Uploads</h3>
+                    </div>
+                    
+                    <div class="doc-upload-info" data-i18n="modal_doc_info">
+                        <i class="fas fa-info-circle"></i> Documents are mandatory for Institutions (FPO, MS, VO, BRC). Aadhar is mandatory for Individuals and Entrepreneurs.
+                    </div>
+                    
+                    <!-- Document Row 1: Registration & PAN -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label id="buyerRegLabel" data-i18n="modal_label_reg_no">Registration Certificate</label>
+                            <input type="file" 
+                                   id="buyerRegUpload" 
+                                   name="buyer_org_doc_reg_no" 
+                                   accept=".pdf,.jpg,.jpeg,.png">
+                            <small data-i18n="modal_doc_note_institution">Mandatory for Institutions</small>
+                        </div>
+                        <div class="form-group">
+                            <label id="buyerPanLabel" data-i18n="modal_label_pan">PAN Card</label>
+                            <input type="file" 
+                                   id="buyerPanUpload" 
+                                   name="buyer_org_doc_pan" 
+                                   accept=".pdf,.jpg,.jpeg,.png">
+                            <small data-i18n="modal_doc_note_institution">Mandatory for Institutions</small>
+                        </div>
+                    </div>
+                    
+                    <!-- Document Row 2: Aadhar -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label id="buyerAadharLabel" data-i18n="modal_label_aadhar">Aadhar Card</label>
+                            <input type="file" 
+                                   id="buyerAadharUpload" 
+                                   name="buyer_org_doc_adhaar" 
+                                   accept=".pdf,.jpg,.jpeg,.png">
+                            <small data-i18n="modal_doc_note_individual">Mandatory for Individuals & Entrepreneurs</small>
+                        </div>
+                    </div>
+
+                    <!-- ============================================================
+                         SECTION 4: ACCOUNT CREDENTIALS
+                         ============================================================ -->
+                    <div class="form-section-header">
+                        <h3 data-i18n="modal_header_creds"><i class="fas fa-key"></i> Account Credentials</h3>
+                    </div>
+                    
+                    <!-- Username & Password Row -->
+                    <div class="form-row">
+                        <!-- Username with Real-time Validation -->
+                        <div class="form-group">
+                            <label data-i18n="modal_label_userid">User ID <span class="required">*</span></label>
+                            <input type="text" 
+                                   id="buyerUserId" 
+                                   name="buyer_org_user_id" 
+                                   maxlength="30" 
+                                   placeholder="Create a User ID" 
+                                   required 
+                                   data-i18n="[placeholder]modal_placeholder_userid">
+                            <!-- Real-time feedback (✓ available or ✗ taken) -->
+                            <div id="buyerUsernameFeedback" class="field-feedback"></div>
+                        </div>
+                        
+                        <!-- Password -->
+                        <div class="form-group">
+                            <label data-i18n="modal_label_password">Password <span class="required">*</span></label>
+                            <div class="password-wrapper">
+                                <input type="password" 
+                                       id="buyerPassword" 
+                                       name="buyer_org_user_id_password" 
+                                       maxlength="72" 
+                                       placeholder="Create password (8-72 characters)" 
+                                       required 
+                                       data-i18n="[placeholder]modal_placeholder_password">
+                                <i class="fas fa-eye password-toggle" onclick="togglePassword('buyerPassword')"></i>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Form Action Buttons -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-paper-plane"></i> <span data-i18n="modal_btn_submit">Submit for Approval</span>
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="closeBuyerModalAndReset()">
+                            <i class="fas fa-times"></i> <span data-i18n="modal_btn_cancel">Cancel</span>
+                        </button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+<!-- ============================================================================
+     END OF BUYER REGISTRATION MODAL
+     ============================================================================ -->
+
+
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="logo-section" style="margin-bottom: 1rem;">
+                    <img src="../img/RYSS_Logo.png" alt="RYSS APCNF Logo" class="logo-img">
+                    <div class="brand-text">
+                        <h1 style="color: white;" data-i18n="footer_h1_farmers_portal">APCNF-RySS Traceability Portal</h1>
+                    </div>
+                </div>
+                <p style="color: #bbb; line-height: 1.6;" data-i18n="footer_p_connecting">Connecting farmers, aggregators, and buyers with full supply chain transparency.</p>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footer_h3_quick_links">Quick Links</h3>
+                <a href="#home" data-i18n="footer_link_home">Home</a>
+                <a href="#" onclick="openModal('aggregatorModal')" data-i18n="footer_link_agg_reg">Aggregator Registration</a>
+                <a href="#" onclick="openModal('buyerModal')" data-i18n="footer_link_buy_reg">Buyer Registration</a>
+            </div>
+            <div class="footer-section">
+                <h3 data-i18n="footer_h3_contact_us">Contact Us</h3>
+                <a href="mailto:info@portal.com"><i class="fas fa-envelope"></i> info@portal.com</a>
+                <a href="tel:+910000000000"><i class="fas fa-phone"></i> +91 000 000 0000</a>
+                <p style="color: #bbb; margin-top: 0.5rem;"><i class="fas fa-map-marker-alt"></i> <span data-i18n="footer_contact_address">Visakhapatnam, Andhra Pradesh</span></p>
+            </div>
+        </div>
+
+        <div class="footer-bottom" data-i18n="footer_copyright">
+            &copy; 2025 APCNF-RySS Traceability Portal. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/apcnf.js"></script>
+    <script src="../js/aggregator-registration.js"></script>
+    <script src="../js/buyer-registration.js"></script>
+
+    <script src="https://unpkg.com/i18next/i18next.min.js"></script>
+    <script src="https://unpkg.com/i18next-http-backend/i18nextHttpBackend.min.js"></script>
+    <script src="../locales/translation.js"></script>
+   
+
+    </body>
+</html>

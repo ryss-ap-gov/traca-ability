@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - My Batches</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>
+    <link rel="stylesheet" href="../css/main.css">
+    <style>
+        .actions-cell {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .btn-view-details {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .btn-view-details:hover {
+            background: var(--primary-dark, #1a5a1a);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main id="dashboard" class="container">
+
+        <div id="successMessage" class="alert alert-success" style="display: none;"></div>
+
+        <!-- Create New Batch Form -->
+        <div class="card card-batch-form" id="batchCreationFormCard">
+            <h3><i class="fa-solid fa-plus-circle"></i> Create New Batch</h3>
+            <form id="batchCreationForm">
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="aggregatorName">Aggregator Name</label>
+                        <input type="text" id="aggregatorName" class="form-control" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="aggregatorId">Aggregator ID</label>
+                        <input type="text" id="aggregatorId" class="form-control" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex-basis: 100%;">
+                        <label for="batchId">Batch ID</label>
+                        <input type="text" id="batchId" class="form-control" placeholder="Will be auto-generated..."
+                            disabled>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="cropCode">Crop <span class="required">*</span></label>
+                        <select id="cropCode" class="form-control" required>
+                            <option value="">Select Crop...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="cropVariety">Crop Variety <span class="required">*</span></label>
+                        <select id="cropVariety" class="form-control" required disabled>
+                            <option value="">Select Variety...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="season">Season <span class="required">*</span></label>
+                        <select id="season" class="form-control" required>
+                            <option value="">Select Season...</option>
+                            <option value="Kharif">Kharif</option>
+                            <option value="Rabi">Rabi</option>
+                            <option value="Zaid">Zaid</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year <span class="required">*</span></label>
+                        <select id="year" class="form-control" required>
+                            <option value="2025-26">2025-26</option>
+                            <option value="2024-25">2024-25</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="procurementDate">Date of Procurement <span class="required">*</span></label>
+                        <input type="date" id="procurementDate" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Date of Expiry</label>
+                        <input type="date" id="expiryDate" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex-basis: 100%;">
+                        <label for="catchmentArea">Catchment Area <span class="required">*</span></label>
+                        <select id="catchmentArea" class="form-control" required>
+                            <option value="">Select Catchment Area...</option>
+                        </select>
+                    </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--light); margin: 1.5rem 0;">
+
+                <h4 style="color: var(--dark); margin-bottom: 1rem;">Farmer Source Information</h4>
+                <div id="farmer-source-list">
+                    <div class="farmer-row">
+                        <div class="form-group">
+                            <label>Farmer ID</label>
+                            <select class="form-control farmer-select">
+                                <option value="">Select Farmer...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Quantity (kgs)</label>
+                            <input type="number" class="form-control quantity-input" placeholder="e.g., 500" min="0">
+                        </div>
+                        <div class="form-group consent-group">
+                            <input type="checkbox" class="consent-check" id="consent-1">
+                            <label for="consent-1">Consent</label>
+                        </div>
+                        <button type="button" class="btn btn-danger btn-small remove-farmer-row"
+                            style="visibility: hidden;">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                <button type="button" id="addFarmerRowBtn" class="btn btn-secondary" style="margin-top: 0.5rem;">
+                    <i class="fa-solid fa-plus"></i> Add Another Farmer
+                </button>
+
+                <hr style="border: none; border-top: 1px solid var(--light); margin: 1.5rem 0;">
+
+                <h4 style="color: var(--dark); margin-bottom: 1rem;"><i class="fa-solid fa-images"></i> Upload Images
+                </h4>
+                <div class="image-upload-grid">
+                    <div class="image-upload-box">
+                        <label for="farmerPicture">
+                            <div class="image-upload-icon">
+                                <i class="fa-solid fa-user-circle"></i>
+                            </div>
+                            <strong>Farmer Picture</strong>
+                            <div class="image-upload-text">Click to upload</div>
+                            <input type="file" id="farmerPicture" accept="image/*">
+                            <img id="farmerPicturePreview" class="image-preview" alt="Farmer Preview">
+                            <button type="button" class="remove-image-btn" id="removeFarmerPicture">
+                                <i class="fa-solid fa-times"></i> Remove
+                            </button>
+                        </label>
+                    </div>
+
+                    <div class="image-upload-box">
+                        <label for="activityPicture">
+                            <div class="image-upload-icon">
+                                <i class="fa-solid fa-camera"></i>
+                            </div>
+                            <strong>Activity Picture</strong>
+                            <div class="image-upload-text">Click to upload</div>
+                            <input type="file" id="activityPicture" accept="image/*">
+                            <img id="activityPicturePreview" class="image-preview" alt="Activity Preview">
+                            <button type="button" class="remove-image-btn" id="removeActivityPicture">
+                                <i class="fa-solid fa-times"></i> Remove
+                            </button>
+                        </label>
+                    </div>
+
+                    <div class="image-upload-box">
+                        <label for="farmPicture">
+                            <div class="image-upload-icon">
+                                <i class="fa-solid fa-tractor"></i>
+                            </div>
+                            <strong>Farm Picture</strong>
+                            <div class="image-upload-text">Click to upload</div>
+                            <input type="file" id="farmPicture" accept="image/*">
+                            <img id="farmPicturePreview" class="image-preview" alt="Farm Preview">
+                            <button type="button" class="remove-image-btn" id="removeFarmPicture">
+                                <i class="fa-solid fa-times"></i> Remove
+                            </button>
+                        </label>
+                    </div>
+                </div>
+
+                <hr style="border: none; border-top: 1px solid var(--light); margin: 1.5rem 0;">
+
+                <h4 style="color: var(--dark); margin-bottom: 1rem;">Upload Certificates (Optional)</h4>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="coaUpload">Certificate of Analysis (COA)</label>
+                        <input type="file" id="coaUpload" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="residualUpload">Residual Analysis</label>
+                        <input type="file" id="residualUpload" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-actions" style="margin-top: 2rem; display: flex; gap: 1rem;">
+                    <button type="submit" class="btn btn-primary btn-block" style="flex: 2;">
+                        <i class="fa-solid fa-save"></i> Save Batch & View List
+                    </button>
+                    <button type="button" id="cancelBatchBtn" class="btn btn-secondary"
+                        style="flex: 1; background: #ddd; color: #555;">
+                        Cancel
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- My Batches Table -->
+        <div class="card card-my-batches" id="myBatchesSection">
+            <h3><i class="fa-solid fa-boxes-stacked"></i> My Batches</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Batch ID</th>
+                            <th>Crop</th>
+                            <th>Variety</th>
+                            <th>Total Quantity (kgs)</th>
+                            <th>Procurement Date</th>
+                            <th>View Details</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="batchListTbody">
+                        <tr id="noBatchesRow">
+                            <td colspan="7" class="placeholder">You have not created any batches yet. Use the form above
+                                to create one!</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- QR Code Modal -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="qrModalTitle">Batch QR Code</h2>
+                <span class="close-btn" onclick="closeQrModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Scan this code for traceability details.</p>
+                <div id="qrCodeContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/mock-data.js"></script>
+    <script src="../js/mybatch.js"></script>
+    <script src="../js/app-loader.js"></script>
+
+</body>
+
+</html>

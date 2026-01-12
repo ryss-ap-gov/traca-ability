@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - Marketplace</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+
+    <style>
+        /* --- COPY OF PREVIOUS STYLES FOR TOGGLE & LAYOUT --- */
+        
+        .header-controls {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 1rem 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Toggle Switch Styling */
+        .role-switch-container {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .role-label {
+            font-weight: bold;
+            color: #999;
+            margin: 0 10px;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .role-label.active {
+            color: #2e7d32; /* Green for active */
+            text-decoration: underline;
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: #2196F3; }
+        input:focus + .slider { box-shadow: 0 0 1px #2196F3; }
+        input:checked + .slider:before { transform: translateX(26px); }
+
+        /* Module Visibility */
+        .module-section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .module-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Table Inputs */
+        .fulfillment-input {
+            width: 90px;
+            padding: 6px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .pending-output {
+            background-color: #f8f9fa;
+            border: 1px solid #e9ecef;
+            padding: 6px;
+            border-radius: 4px;
+            text-align: right;
+            display: block;
+            width: 90px;
+            color: #dc3545; /* Red for pending */
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 400px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+
+    <main class="container">
+
+        <div class="header-controls">
+            <div class="role-switch-container">
+                <span id="label-buyer" class="role-label active"><i class="fa-solid fa-cart-shopping"></i> BUYER VIEW</span>
+                <label class="switch">
+                    <input type="checkbox" id="roleToggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="label-aggregator" class="role-label"><i class="fa-solid fa-users-gear"></i> AGGREGATOR VIEW</span>
+            </div>
+        </div>
+
+        <div id="buyer-module" class="module-section active">
+            <div class="card">
+                <h3><i class="fa-solid fa-list-check"></i> Available Batches (Marketable Surplus)</h3>
+                <p style="color: #666; font-size: 0.9rem;">View available crop batches and raise your buying interest quantity.</p>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr style="background-color: #fbeee6;"> <th>Batch No.</th>
+                                <th>Crop Name</th>
+                                <th>Crop Variety</th>
+                                <th>Season</th>
+                                <th>Year</th>
+                                <th>Aggregator</th>
+                                <th>QTY (Surplus)</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BTC-2023-001</td>
+                                <td>Tomato</td>
+                                <td>Hybrid-44</td>
+                                <td>Rabi</td>
+                                <td>2023</td>
+                                <td>FPO Aggregator One</td>
+                                <td>5,000 Kg</td>
+                                <td>
+                                    <button class="btn btn-sm btn-raise-interest" 
+                                            data-id="BTC-2023-001" 
+                                            data-crop="Tomato (Hybrid-44)"
+                                            style="background: var(--dark, #333); color: white; border: none; padding: 5px 10px; cursor: pointer;">
+                                        Raise Interest
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BTC-2023-005</td>
+                                <td>Maize</td>
+                                <td>Sweet Corn</td>
+                                <td>Kharif</td>
+                                <td>2024</td>
+                                <td>Rayalaseema FPO</td>
+                                <td>12,000 Kg</td>
+                                <td>
+                                    <button class="btn btn-sm btn-raise-interest" 
+                                            data-id="BTC-2023-005"
+                                            data-crop="Maize (Sweet Corn)"
+                                            style="background: var(--dark, #333); color: white; border: none; padding: 5px 10px; cursor: pointer;">
+                                        Raise Interest
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BTC-2023-008</td>
+                                <td>Paddy</td>
+                                <td>Sona Masoori</td>
+                                <td>Rabi</td>
+                                <td>2023</td>
+                                <td>FPO Aggregator One</td>
+                                <td>25,000 Kg</td>
+                                <td>
+                                    <span class="tag" style="background: #e0f7fa; color: #006064; padding: 4px 8px; border-radius: 4px;">
+                                        <i class="fa-solid fa-clock"></i> Pending Approval
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="aggregator-module" class="module-section">
+            <div class="card">
+                <h3><i class="fa-solid fa-file-invoice"></i> Manage Fulfillment</h3>
+                <p style="color: #666; font-size: 0.9rem;">Enter fulfilled quantities for approved buying interests. Pending quantity calculates automatically.</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Interest ID</th>
+                                <th>Buyer ID</th>
+                                <th>Batch Details</th>
+                                <th>Requested Qty</th>
+                                <th>Fulfilled Qty</th>
+                                <th>Pending Qty</th> <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>INT-8821</td>
+                                <td><strong>BYR-105</strong></td>
+                                <td>
+                                    Tomato<br>
+                                    <small style="color:#666;">BTC-2023-001</small>
+                                </td>
+                                <td>
+                                    <span id="req-8821" style="font-weight:bold;">2000</span> Kg
+                                </td>
+                                <td>
+                                    <input type="number" class="fulfillment-input" 
+                                           id="ful-8821" 
+                                           placeholder="0" 
+                                           oninput="calculatePending('8821')">
+                                </td>
+                                <td>
+                                    <span id="pen-8821" class="pending-output">2000</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm" onclick="saveFulfillment('8821')" style="background: var(--success, green); color: white; border: none; padding: 5px 10px; border-radius: 4px;">
+                                        Save
+                                    </button>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>INT-8890</td>
+                                <td><strong>BYR-210</strong></td>
+                                <td>
+                                    Maize<br>
+                                    <small style="color:#666;">BTC-2023-005</small>
+                                </td>
+                                <td>
+                                    <span id="req-8890" style="font-weight:bold;">5000</span> Kg
+                                </td>
+                                <td>
+                                    <input type="number" class="fulfillment-input" 
+                                           id="ful-8890" 
+                                           value="3000" 
+                                           oninput="calculatePending('8890')">
+                                </td>
+                                <td>
+                                    <span id="pen-8890" class="pending-output">2000</span>
+                                </td>
+                                <td>
+                                    <button class="btn btn-sm" onclick="saveFulfillment('8890')" style="background: var(--success, green); color: white; border: none; padding: 5px 10px; border-radius: 4px;">
+                                        Save
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="interestModal" class="modal-overlay">
+        <div class="modal-content">
+            <h4>Raise Interest</h4>
+            <p id="modalBatchInfo" style="color: #666; margin-bottom: 1rem;"></p>
+            
+            <form id="raiseInterestForm">
+                <div class="form-group">
+                    <label style="font-weight: bold; display: block; margin-bottom: 5px;">Interest Quantity (Kg) <span style="color:red">*</span></label>
+                    <input type="number" id="modalQty" class="form-control" required placeholder="Enter Quantity required" style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+                </div>
+                
+                <div style="margin-top: 1.5rem; text-align: right;">
+                    <button type="button" class="btn" id="closeModalBtn" style="background: #ccc; margin-right: 10px;">Cancel</button>
+                    <button type="submit" class="btn" style="background: var(--primary, #007bff); color: white;">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="../js/app-loader.js"></script>
+    <script>
+        // --- 1. TOGGLE LOGIC ---
+        const roleToggle = document.getElementById('roleToggle');
+        const buyerModule = document.getElementById('buyer-module');
+        const aggregatorModule = document.getElementById('aggregator-module');
+        const labelBuyer = document.getElementById('label-buyer');
+        const labelAggregator = document.getElementById('label-aggregator');
+
+        roleToggle.addEventListener('change', function() {
+            if(this.checked) {
+                // Show Aggregator
+                buyerModule.classList.remove('active');
+                aggregatorModule.classList.add('active');
+                labelBuyer.classList.remove('active');
+                labelAggregator.classList.add('active');
+            } else {
+                // Show Buyer
+                buyerModule.classList.add('active');
+                aggregatorModule.classList.remove('active');
+                labelBuyer.classList.add('active');
+                labelAggregator.classList.remove('active');
+            }
+        });
+
+        // --- 2. BUYER: RAISE INTEREST MODAL ---
+        const modal = document.getElementById('interestModal');
+        const modalInfo = document.getElementById('modalBatchInfo');
+        const closeBtn = document.getElementById('closeModalBtn');
+        const raiseBtns = document.querySelectorAll('.btn-raise-interest');
+
+        raiseBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const batchId = this.getAttribute('data-id');
+                const cropName = this.getAttribute('data-crop');
+                
+                modalInfo.innerHTML = `Batch: <strong>${batchId}</strong><br>Crop: ${cropName}`;
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeBtn.addEventListener('click', () => { modal.style.display = 'none'; });
+
+        document.getElementById('raiseInterestForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const qty = document.getElementById('modalQty').value;
+            alert(`Interest successfully raised for ${qty} Kg! It is now sent for Admin Approval.`);
+            modal.style.display = 'none';
+            document.getElementById('modalQty').value = ''; // Reset
+        });
+
+        // --- 3. AGGREGATOR: CALCULATE PENDING QTY ---
+        function calculatePending(id) {
+            const requestedEl = document.getElementById('req-' + id);
+            const fulfilledInput = document.getElementById('ful-' + id);
+            const pendingEl = document.getElementById('pen-' + id);
+
+            const reqQty = parseFloat(requestedEl.innerText);
+            let fulQty = parseFloat(fulfilledInput.value);
+
+            if(isNaN(fulQty)) fulQty = 0;
+
+            // Optional: Validation to prevent over-fulfillment
+            if(fulQty > reqQty) {
+                alert("Fulfilled Quantity cannot be greater than Requested Quantity");
+                fulfilledInput.value = reqQty;
+                fulQty = reqQty;
+            }
+
+            const pending = reqQty - fulQty;
+            pendingEl.innerText = pending;
+
+            // Visual cue for completion
+            if(pending === 0) {
+                pendingEl.style.color = "green";
+                pendingEl.style.fontWeight = "bold";
+                pendingEl.innerHTML = '<i class="fa-solid fa-check"></i> 0';
+            } else {
+                pendingEl.style.color = "#dc3545"; // Red
+            }
+        }
+
+        function saveFulfillment(id) {
+            const pending = document.getElementById('pen-' + id).innerText;
+            alert(`Saved! Remaining pending quantity is ${pending} Kg.`);
+        }
+        
+        // Run calculation on load for any pre-filled inputs
+        window.addEventListener('DOMContentLoaded', () => {
+            calculatePending('8821');
+            calculatePending('8890');
+        });
+
+    </script>
+
+</body>
+</html>

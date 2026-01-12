@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - Crop Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+
+    <div class="admin-wrapper">
+        <div id="admin-header-placeholder"></div>
+
+        <main class="admin-content">
+
+
+            <div class="admin-grid-2">
+                <div class="card">
+                    <h3><i class="fa-solid fa-plus-circle"></i> Add New Crop</h3>
+                    <form id="add-crop-form">
+                        <div class="form-group">
+                            <label for="cropName">Crop Name</label>
+                            <input type="text" id="cropName" class="form-control" placeholder="e.g., Groundnut"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cropId">Crop ID</label>
+                            <input type="text" id="cropId" class="form-control" placeholder="e.g., 105" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="varietyName">Crop Variety Name</label>
+                            <input type="text" id="varietyName" class="form-control" placeholder="e.g., K6" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="varietyId">Variety ID</label>
+                            <input type="text" id="varietyId" class="form-control" placeholder="e.g., 105-001" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-plus"></i> Add
+                            Crop to Master List</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3><i class="fa-solid fa-list-check"></i> Crop Master List</h3>
+                    <div class="table-container" style="max-height: 400px; overflow-y: auto;">
+                        <table id="crop-master-table">
+                            <thead>
+                                <tr>
+                                    <th>Crop Name</th>
+                                    <th>Crop ID</th>
+                                    <th>Variety</th>
+                                    <th>Variety ID</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>PADDY</td>
+                                    <td>101</td>
+                                    <td>A</td>
+                                    <td>101-001</td>
+                                    <td><button class="btn btn-small btn-danger remove-btn"><i
+                                                class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>HORSE_GRAM</td>
+                                    <td>102</td>
+                                    <td>B</td>
+                                    <td>102-001</td>
+                                    <td><button class="btn btn-small btn-danger remove-btn"><i
+                                                class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>TOMATO</td>
+                                    <td>103</td>
+                                    <td>C</td>
+                                    <td>103-001</td>
+                                    <td><button class="btn btn-small btn-danger remove-btn"><i
+                                                class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                                <tr>
+                                    <td>MAIZE</td>
+                                    <td>104</td>
+                                    <td>D</td>
+                                    <td>104-001</td>
+                                    <td><button class="btn btn-small btn-danger remove-btn"><i
+                                                class="fa-solid fa-trash"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div id="admin-footer-placeholder"></div>
+    </div>
+
+    <script src="../js/mock-data.js"></script>
+    <script src="../js/admin-crops.js"></script>
+    <script src="../js/admin-loader.js"></script>
+
+</body>
+
+</html>

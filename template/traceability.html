@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APCNF-RySS Traceability - Traceability Details</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/main.css">
+
+</head>
+
+<body>
+
+    <header id="mainHeader">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo">
+                    <img src="../img/RYSS_Logo.png" alt="RYSS APCNF Logo" class="logo-img">
+                </div>
+                <div class="brand-text">
+                    <h1>APCNF-RySS Traceability</h1>
+                    <p>Andhra Pradesh Community Natural Farming</p>
+                </div>
+            </div>
+            <nav>
+                <a href="#farmerDetailsSection" class="btn btn-primary">
+                    <i class="fa-solid fa-users"></i> Know Your Farmer
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <div class="product-title">
+            <h1>Kuppam Tomatoes</h1>
+            <p>Batch ID: <span>B-10023</span></p>
+        </div>
+
+        <div class="card card-batch-details">
+            <h3>Batch Information</h3>
+            <div class="detail-grid">
+                <div class="detail-item">
+                    <strong>Aggregator Name</strong>
+                    <span>FPO Aggregator One</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Aggregator ID</strong>
+                    <span>AG-10023</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Crop</strong>
+                    <span>TOMATO</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Variety</strong>
+                    <span>C (Local Variety)</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Season</strong>
+                    <span>Rabi</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Year</strong>
+                    <span>2024-25</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Procurement Date</strong>
+                    <span>2025-03-10</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Expiry Date</strong>
+                    <span>2025-03-20</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Total Batch Quantity</strong>
+                    <span>1500 kgs</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Quantity Available</strong>
+                    <span>800 kgs</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="traceability-grid">
+
+            <div class="card journey-card">
+                <h3>Product Journey</h3>
+                <div class="timeline-container">
+
+                    <div class="timeline-item active">
+                        <div class="timeline-icon"><i class="fa-solid fa-tractor"></i></div>
+                        <div class="timeline-content">
+                            <h4>Farmed</h4>
+                            <p>Sourced from 3 verified Natural Farming farmers in the Kuppam region of Chittoor.</p>
+                            <a href="#farmerDetailsSection" id="viewFarmersBtn" class="btn btn-primary btn-small">
+                                <i class="fa-solid fa-users"></i> View Farmer Details
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active">
+                        <div class="timeline-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                        <div class="timeline-content">
+                            <h4>Collected & Batched</h4>
+                            <p>Produce collected, graded, and batched by <strong>FPO Aggregator One</strong>.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active">
+                        <div class="timeline-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <div class="timeline-content">
+                            <h4>Distributed</h4>
+                        </div>
+                    </div>
+
+
+                    <div class="timeline-item active">
+                        <div class="timeline-icon"><i class="fa-solid fa-user"></i></div>
+                        <div class="timeline-content">
+                            <h4>You Are Here</h4>
+                            <p>Thank you for supporting natural farming!</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card map-card">
+                <h3>Sourced From</h3>
+                <p style="font-size: 0.9rem; color: #666;">This batch was sourced from farms in the Kuppam area,
+                    Chittoor District.</p>
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <div class="card" id="farmerDetailsSection">
+            <h3>Know Your Farmers</h3>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Farmer Name</th>
+                            <th>Mandal</th>
+                            <th>Village</th>
+                            <th>Crop</th>
+                            <th>Acreage</th>
+                            <th>Practices</th>
+                            <th>Category</th>
+                            <th>PGS Certificate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Bramaramba Bommineni</td>
+                            <td>Ballikuruva</td>
+                            <td>Guntupalli</td>
+                            <td>TOMATO</td>
+                            <td>1.0</td>
+                            <td><span class="tag tag-practice">Beejamrutham</span> <span class="tag tag-practice">100%
+                                    Chemical Free</span></td>
+                            <td><span class="tag tag-category">S2S</span></td>
+                            <td><a href="#" class="btn btn-small btn-primary"><i class="fa-solid fa-download"></i>
+                                    Download</a></td>
+                        </tr>
+                        <tr>
+                            <td>Venkatalakshmma Balipogu</td>
+                            <td>Maddipadu</td>
+                            <td>Maddipadu</td>
+                            <td>TOMATO</td>
+                            <td>1.0</td>
+                            <td><span class="tag tag-practice">PMDS</span> <span class="tag tag-practice">Inter/Mixed
+                                    Cropping</span></td>
+                            <td><span class="tag tag-category">C1</span></td>
+                            <td><a href="#" class="btn btn-small btn-primary"><i class="fa-solid fa-download"></i>
+                                    Download</a></td>
+                        </tr>
+                        <tr>
+                            <td>A.Laksgmidevi</td>
+                            <td>Kurabalakota</td>
+                            <td>Dadamvaripalle</td>
+                            <td>MAIZE</td>
+                            <td>1.0</td>
+                            <td><span class="tag tag-practice">Botanical Extracts</span> <span
+                                    class="tag tag-practice">PMDS</span></td>
+                            <td><span class="tag tag-category">C1</span></td>
+                            <td><a href="#" class="btn btn-small btn-primary"><i class="fa-solid fa-download"></i>
+                                    Download</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card" id="practicesSection">
+            <h3>About Natural Farming Practices</h3>
+            <div class="practice-item">
+                <h5><span class="tag tag-practice">Beejamrutham</span></h5>
+                <p>A natural seed treatment made from cow dung, cow urine, water, lime, and soil. It protects seeds from
+                    fungal diseases and aids in germination.</p>
+            </div>
+            <div class="practice-item">
+                <h5><span class="tag tag-practice">PMDS (Pest Management Dashparni)</span></h5>
+                <p>A fermented mixture of 10 different plant leaves known for their pest-repellent properties. It's a
+                    natural pesticide that controls a wide range of pests.</p>
+            </div>
+            <div class="practice-item">
+                <h5><span class="tag tag-practice">Inter/Mixed Cropping</span></h5>
+                <p>Planting different crops in the same field. This improves soil health, increases biodiversity, and
+                    provides natural pest control.</p>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="footer"
+        style="background: var(--dark); color: white; text-align: center; padding: 2rem; margin-top: 2rem;">
+        <div class="container">
+            <p>&copy; 2025 APCNF Traceability Portal. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../js/mock-data.js"></script>
+    <script src="../js/traceability.js"></script>
+
+</body>
+
+</html>
